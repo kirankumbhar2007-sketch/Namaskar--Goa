@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SAKHI AI | Namaskar Goa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --deep-blue: #0A1628;
+            --gold: #F4A642;
+            --coral: #E8563A;
+            --turquoise: #00BCD4;
+            --cream: #FFF8F0;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--deep-blue); color: var(--cream); min-height: 100vh; }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(10,22,40,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(244,166,66,0.2);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+        .logo span { color: var(--turquoise); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-cta { background: var(--gold); color: var(--deep-blue) !important; padding: 10px 25px !important; border-radius: 50px !important; font-weight: 600 !important; }
+
+        /* SAKHI PAGE LAYOUT */
+        .sakhi-page {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        /* LEFT PANEL */
+        .sakhi-info {
+            background: rgba(0,188,212,0.04);
+            border-right: 1px solid rgba(0,188,212,0.15);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sakhi-avatar {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .avatar-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--turquoise), #0066cc);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            animation: avatarPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,188,212,0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(0,188,212,0); }
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background: #00ff88;
+            border-radius: 50%;
+            border: 3px solid var(--deep-blue);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .sakhi-avatar h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--turquoise);
+        }
+
+        .sakhi-avatar p {
+            color: rgba(255,248,240,0.5);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* Quick Topics */
+        .quick-topics h4 {
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .topic-btn {
+            display: block;
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--cream);
+            padding: 12px 18px;
+            border-radius: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+        }
+
+        .topic-btn:hover {
+            background: rgba(244,166,66,0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* SAKHI Powers */
+        .sakhi-powers h4 {
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .power-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+            color: rgba(255,248,240,0.6);
+        }
+
+        .power-item i {
+            color: var(--turquoise);
+            width: 20px;
+        }
+
+        /* CHAT SECTION */
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 80px);
+        }
+
+        .chat-header {
+            padding: 30px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .chat-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .chat-header p {
+            color: rgba(255,248,240,0.5);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* Messages */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(244,166,66,0.3); border-radius: 2px; }
+
+        .message {
+            display: flex;
+            gap: 15px;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .msg-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .msg-avatar.sakhi-av {
+            background: linear-gradient(135deg, var(--turquoise), #0066cc);
+        }
+
+        .msg-avatar.user-av {
+            background: linear-gradient(135deg, var(--gold), var(--coral));
+        }
+
+        .msg-bubble {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .message.sakhi .msg-bubble {
+            background: rgba(0,188,212,0.1);
+            border: 1px solid rgba(0,188,212,0.2);
+            border-top-left-radius: 4px;
+        }
+
+        .message.user .msg-bubble {
+            background: linear-gradient(135deg, rgba(244,166,66,0.2), rgba(232,86,58,0.2));
+            border: 1px solid rgba(244,166,66,0.3);
+            border-top-right-radius: 4px;
+        }
+
+        .msg-time {
+            font-size: 0.7rem;
+            color: rgba(255,248,240,0.3);
+            margin-top: 5px;
+        }
+
+        /* TYPING INDICATOR */
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 15px 20px;
+            background: rgba(0,188,212,0.1);
+            border: 1px solid rgba(0,188,212,0.2);
+            border-radius: 18px;
+            border-top-left-radius: 4px;
+            width: fit-content;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--turquoise);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* INPUT AREA */
+        .chat-input-area {
+            padding: 25px 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 15px 25px;
+            color: var(--cream);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chat-input:focus {
+            border-color: var(--turquoise);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255,248,240,0.3);
+        }
+
+        .send-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--turquoise), #0066cc);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0,188,212,0.4);
+        }
+
+        .sos-btn {
+            background: rgba(232,86,58,0.2);
+            border: 1px solid var(--coral);
+            color: var(--coral);
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .sos-btn:hover {
+            background: var(--coral);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">नमस्कार <span>Goa</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/heritage">Heritage</a></li>
+            <li><a href="/sakhi">SAKHI AI</a></li>
+            <li><a href="/passport">My Passport</a></li>
+            <li><a href="/impact">Impact</a></li>
+            <li><a href="/sakhi" class="nav-cta">Start Journey</a></li>
+        </ul>
+    </nav>
+
+    <div class="sakhi-page">
+        
+        <!-- LEFT PANEL -->
+        <div class="sakhi-info">
+            
+            <div class="sakhi-avatar">
+                <div class="avatar-circle">
+                    🤖
+                    <div class="status-dot"></div>
+                </div>
+                <h2>SAKHI</h2>
+                <p>Superintelligent AI Cultural Guide</p>
+                <p style="color: #00ff88; font-size: 0.75rem; margin-top: 5px;">● Online & Ready</p>
+            </div>
+
+            <div class="quick-topics">
+                <h4>Quick Topics</h4>
+                <button class="topic-btn" onclick="sendQuick('Tell me about Aguada Fort')">🏰 Aguada Fort History</button>
+                <button class="topic-btn" onclick="sendQuick('Where can I eat authentic Goan food?')">🍛 Authentic Local Food</button>
+                <button class="topic-btn" onclick="sendQuick('I want to learn pottery craft')">🪔 Learn Dying Crafts</button>
+                <button class="topic-btn" onclick="sendQuick('I need help, emergency SOS')">🆘 Emergency SOS</button>
+                <button class="topic-btn" onclick="sendQuick('What are my budget options?')">💰 Budget Planning</button>
+                <button class="topic-btn" onclick="sendQuick('Tell me about Goan dance and music')">🎭 Arts and Culture</button>
+                <button class="topic-btn" onclick="sendQuick('मुझे गोवा की विरासत के बारे में बताओ')">🇮🇳 हिंदी में पूछें</button>
+                <button class="topic-btn" onclick="sendQuick('गोवा में क्या खाना चाहिए?')">🍛 खाने की जानकारी</button>
+            </div>
+
+            <div class="sakhi-powers">
+                <h4>SAKHI Superpowers</h4>
+                <div class="power-item"><i class="fas fa-brain"></i> Personalized Journey Maps</div>
+                <div class="power-item"><i class="fas fa-language"></i> Cultural Context Translator</div>
+                <div class="power-item"><i class="fas fa-map-marker-alt"></i> Hidden Local Spots</div>
+                <div class="power-item"><i class="fas fa-shield-alt"></i> Emergency SOS Guard</div>
+                <div class="power-item"><i class="fas fa-coins"></i> Zero Middlemen Booking</div>
+            </div>
+
+        </div>
+
+        <!-- CHAT SECTION -->
+        <div class="chat-section">
+            
+            <div class="chat-header">
+                <h3>Chat with SAKHI 🌴</h3>
+                <p>Ask anything about Goa's culture, heritage, food, or experiences</p>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                
+                <!-- Initial SAKHI Message -->
+                <div class="message sakhi">
+                    <div class="msg-avatar sakhi-av">🤖</div>
+                    <div>
+                        <div class="msg-bubble">
+                            🙏 <strong>Namaskaram!</strong> I'm SAKHI — your personal cultural guide to Goa!<br><br>
+                            I know every hidden story, every endangered craft, and every amazing local you MUST meet. I also make sure 100% of your money goes directly to the community — zero middlemen.<br><br>
+                            Tell me: what brings you to Goa? 🌴
+                        </div>
+                        <div class="msg-time">Just now</div>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="message sakhi" id="typingIndicator" style="display:none;">
+                    <div class="msg-avatar sakhi-av">🤖</div>
+                    <div class="typing-indicator" style="display:flex;">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Add this CSS inside your <style> tag in sakhi.html -->
+    <style>
+        .language-toggle {
+            display: flex;
+            gap: 10px;
+            padding: 15px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            align-items: center;
+        }
+
+        .lang-label {
+            font-size: 0.8rem;
+            color: rgba(255,248,240,0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-right: 5px;
+        }
+
+        .lang-btn {
+            padding: 8px 22px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: rgba(255,248,240,0.5);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--gold), var(--coral));
+            border-color: transparent;
+            color: white;
+            font-weight: 600;
+        }
+
+        .lang-btn:hover:not(.active) {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .current-lang-badge {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: rgba(255,248,240,0.3);
+        }
+    </style>
+
+    <!-- LANGUAGE TOGGLE BAR -->
+    <div class="language-toggle">
+        <span class="lang-label">🌐 Language:</span>
+        <button class="lang-btn active" id="btnEnglish" onclick="setLanguage('english')">
+            🇬🇧 English
+        </button>
+        <button class="lang-btn" id="btnHindi" onclick="setLanguage('hindi')">
+            🇮🇳 हिंदी
+        </button>
+        <span class="current-lang-badge" id="currentLangBadge">Responding in English</span>
+    </div>
+
+    <!-- CHAT INPUT AREA -->
+    <div class="chat-input-area">
+        <input
+            type="text"
+            class="chat-input"
+            id="chatInput"
+            placeholder="Ask SAKHI anything about Goa... 🌴"
+            onkeypress="handleKeyPress(event)"
+        >
+        <button class="sos-btn" onclick="sendQuick('I need help, emergency SOS')">🆘 SOS</button>
+        <button class="send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+                <button class="sos-btn" onclick="sendQuick('I need help, emergency SOS')">🆘 SOS</button>
+                <button class="send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+    // LANGUAGE SETTING
+    let currentLanguage = 'english';
+
+    function setLanguage(lang) {
+        currentLanguage = lang;
+
+        // Update buttons
+        document.getElementById('btnEnglish').classList.remove('active');
+        document.getElementById('btnHindi').classList.remove('active');
+
+        if (lang === 'english') {
+            document.getElementById('btnEnglish').classList.add('active');
+            document.getElementById('currentLangBadge').textContent = 'Responding in English';
+            document.getElementById('chatInput').placeholder = 'Ask SAKHI anything about Goa... 🌴';
+        } else {
+            document.getElementById('btnHindi').classList.add('active');
+            document.getElementById('currentLangBadge').textContent = 'हिंदी में जवाब देंगे';
+            document.getElementById('chatInput').placeholder = 'SAKHI से गोवा के बारे में कुछ भी पूछें... 🌴';
+        }
+
+        // Show language switch confirmation in chat
+        const confirmMsg = lang === 'hindi'
+            ? '🇮🇳 भाषा बदल दी गई! अब मैं हिंदी में जवाब दूंगी। गोवा के बारे में कुछ भी पूछें! 🌴'
+            : '🇬🇧 Language switched to English! Ask me anything about Goa! 🌴';
+
+        addMessage(confirmMsg, 'sakhi');
+    }
+
+    // GET CURRENT TIME
+    function getCurrentTime() {
+        const now = new Date();
+        return now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+
+    // ADD MESSAGE TO CHAT
+    function addMessage(text, sender) {
+        const messages = document.getElementById('chatMessages');
+        const typing = document.getElementById('typingIndicator');
+
+        const div = document.createElement('div');
+        div.className = `message ${sender}`;
+
+        if (sender === 'sakhi') {
+            div.innerHTML = `
+                <div class="msg-avatar sakhi-av">🤖</div>
+                <div>
+                    <div class="msg-bubble">${text}</div>
+                    <div class="msg-time">${getCurrentTime()}</div>
+                </div>
+            `;
+        } else {
+            div.innerHTML = `
+                <div>
+                    <div class="msg-bubble">${text}</div>
+                    <div class="msg-time" style="text-align:right;">${getCurrentTime()}</div>
+                </div>
+                <div class="msg-avatar user-av">😊</div>
+            `;
+        }
+
+        messages.insertBefore(div, typing);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    // SHOW TYPING DOTS
+    function showTyping() {
+        document.getElementById('typingIndicator').style.display = 'flex';
+        const messages = document.getElementById('chatMessages');
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    // HIDE TYPING DOTS
+    function hideTyping() {
+        document.getElementById('typingIndicator').style.display = 'none';
+    }
+
+    // SEND MESSAGE TO SAKHI
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (!message) return;
+
+        addMessage(message, 'user');
+        input.value = '';
+        showTyping();
+
+        // SEND LANGUAGE ALONG WITH MESSAGE
+        fetch('/chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: message,
+                language: currentLanguage
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTimeout(() => {
+                hideTyping();
+                addMessage(data.response, 'sakhi');
+            }, 1200);
+        })
+        .catch(err => {
+            hideTyping();
+            if (currentLanguage === 'hindi') {
+                addMessage('🌴 माफ करें! कनेक्शन में समस्या है। कृपया दोबारा कोशिश करें। 🙏', 'sakhi');
+            } else {
+                addMessage('🌴 Connection issue! Please try again. 🙏', 'sakhi');
+            }
+        });
+    }
+
+    // SEND QUICK TOPIC MESSAGE
+    function sendQuick(text) {
+        document.getElementById('chatInput').value = text;
+        sendMessage();
+    }
+
+    // ENTER KEY TO SEND
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') sendMessage();
+    }
+</script>
+
+</body>
+</html>

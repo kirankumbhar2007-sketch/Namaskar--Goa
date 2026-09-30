@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community Impact | Namaskar Goa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --deep-blue: #0A1628;
+            --gold: #F4A642;
+            --coral: #E8563A;
+            --turquoise: #00BCD4;
+            --cream: #FFF8F0;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--deep-blue); color: var(--cream); }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(10,22,40,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(244,166,66,0.2);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+        .logo span { color: var(--turquoise); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-cta { background: var(--gold); color: var(--deep-blue) !important; padding: 10px 25px !important; border-radius: 50px !important; font-weight: 600 !important; }
+
+        .impact-page { padding: 120px 50px 80px; max-width: 1200px; margin: 0 auto; }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .page-header span {
+            color: var(--turquoise);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 em {
+            font-style: italic;
+            background: linear-gradient(90deg, var(--gold), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: rgba(255,248,240,0.5);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* MONEY TRACKER */
+        .money-tracker {
+            background: linear-gradient(135deg, rgba(0,188,212,0.08), rgba(244,166,66,0.05));
+            border: 1px solid rgba(244,166,66,0.2);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 50px;
+        }
+
+        .money-tracker h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .money-tracker p {
+            color: rgba(255,248,240,0.5);
+            margin-bottom: 40px;
+        }
+
+        .money-example {
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .money-total {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .money-label {
+            color: rgba(255,248,240,0.5);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+        }
+
+        .money-breakdown { display: flex; flex-direction: column; gap: 15px; }
+
+        .money-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .money-row-label {
+            width: 200px;
+            font-size: 0.9rem;
+            color: rgba(255,248,240,0.7);
+        }
+
+        .money-bar-wrap {
+            flex: 1;
+            height: 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .money-bar {
+            height: 100%;
+            border-radius: 50px;
+            transition: width 1.5s ease;
+        }
+
+        .bar-homestay { background: linear-gradient(90deg, #00ff88, #00BCD4); width: 0%; }
+        .bar-pottery { background: linear-gradient(90deg, var(--gold), var(--coral)); width: 0%; }
+        .bar-restaurant { background: linear-gradient(90deg, #9B59B6, #E8563A); width: 0%; }
+
+        .money-amount {
+            width: 70px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--cream);
+        }
+
+        /* IMPACT STATS */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .impact-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .impact-card:hover {
+            border-color: rgba(244,166,66,0.3);
+            transform: translateY(-5px);
+        }
+
+        .impact-icon { font-size: 2.5rem; display: block; margin-bottom: 15px; }
+        .impact-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+        .impact-desc { font-size: 0.85rem; color: rgba(255,248,240,0.5); margin-top: 8px; }
+
+        /* LOCAL PROFILES */
+        .locals-section { margin-bottom: 50px; }
+        .locals-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; }
+        .locals-section p { color: rgba(255,248,240,0.5); margin-bottom: 30px; }
+
+        .locals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .local-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .local-card:hover {
+            border-color: rgba(0,188,212,0.3);
+            transform: translateY(-5px);
+        }
+
+        .local-header { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+        .local-emoji { font-size: 3rem; }
+        .local-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+        .local-role { color: var(--turquoise); font-size: 0.8rem; }
+
+        .local-stats { display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+        .local-stat {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+        }
+
+        .local-earned {
+            font-size: 0.85rem;
+            color: rgba(255,248,240,0.6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 15px;
+        }
+
+        .local-earned strong { color: #00ff88; }
+
+        /* VERIFIED BADGE */
+        .verified {
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+            color: #00ff88;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">नमस्कार <span>Goa</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/heritage">Heritage</a></li>
+            <li><a href="/sakhi">SAKHI AI</a></li>
+            <li><a href="/passport">My Passport</a></li>
+            <li><a href="/impact">Impact</a></li>
+            <li><a href="/sakhi" class="nav-cta">Start Journey</a></li>
+        </ul>
+    </nav>
+
+    <div class="impact-page">
+
+        <div class="page-header">
+            <span>💰 Blockchain Verified</span>
+            <h1>Your Money. Their <em>Future.</em></h1>
+            <p>Real-time transparency on exactly where every rupee goes. Zero middlemen. 100% to local communities.</p>
+        </div>
+
+        <!-- MONEY TRACKER -->
+        <div class="money-tracker">
+            <h2>💸 Live Money Flow Dashboard</h2>
+            <p>Every transaction verified on blockchain. See exactly where your ₹2000 went today.</p>
+
+            <div class="money-example">
+                <div class="money-total">₹2,000</div>
+                <div class="money-label">Your last booking — Cultural Heritage Day Experience</div>
+                
+                <div class="money-breakdown">
+                    <div class="money-row">
+                        <div class="money-row-label">🏠 Ramesh's Homestay</div>
+                        <div class="money-bar-wrap">
+                            <div class="money-bar bar-homestay" id="bar1"></div>
+                        </div>
+                        <div class="money-amount">₹1,200</div>
+                    </div>
+                    <div class="money-row">
+                        <div class="money-row-label">🏺 Pottery Workshop</div>
+                        <div class="money-bar-wrap">
+                            <div class="money-bar bar-pottery" id="bar2"></div>
+                        </div>
+                        <div class="money-amount">₹500</div>
+                    </div>
+                    <div class="money-row">
+                        <div class="money-row-label">🍛 Local Restaurant</div>
+                        <div class="money-bar-wrap">
+                            <div class="money-bar bar-restaurant" id="bar3"></div>
+                        </div>
+                        <div class="money-amount">₹300</div>
+                    </div>
+                </div>
+            </div>
+            <p style="color: #00ff88; font-size: 0.9rem;">✅ Blockchain Verified · Zero Middlemen · Smart Contract Executed</p>
+        </div>
+
+        <!-- IMPACT STATS -->
+        <div class="impact-stats">
+            <div class="impact-card">
+                <span class="impact-icon">👨‍👩‍👧‍👦</span>
+                <span class="impact-number">2,400+</span>
+                <div class="impact-desc">Local families directly earning from tourism</div>
+            </div>
+            <div class="impact-card">
+                <span class="impact-icon">💰</span>
+                <span class="impact-number">₹2.4Cr</span>
+                <div class="impact-desc">Directly transferred to artisans this year</div>
+            </div>
+            <div class="impact-card">
+                <span class="impact-icon">🏺</span>
+                <span class="impact-number">89</span>
+                <div class="impact-desc">Dying crafts digitally preserved forever</div>
+            </div>
+            <div class="impact-card">
+                <span class="impact-icon">📹</span>
+                <span class="impact-number">340+</span>
+                <div class="impact-desc">Master artisan sessions archived in AI vault</div>
+            </div>
+        </div>
+
+        <!-- LOCAL PROFILES -->
+        <div class="locals-section">
+            <h2>🙏 Meet the Real Beneficiaries</h2>
+            <p>Real people. Real stories. Real impact. All verified.</p>
+
+            <div class="locals-grid">
+                
+                <div class="local-card">
+                    <div class="local-header">
+                        <div class="local-emoji">👨‍🏺</div>
+                        <div>
+                            <div class="local-name">Ramesh Kumbar</div>
+                            <div class="local-role">Master Potter · Ponda Village</div>
+                        </div>
+                    </div>
+                    <div class="local-stats">
+                        <span class="local-stat">⭐ 4.9 Rating</span>
+                        <span class="local-stat">🏺 6th Generation</span>
+                        <span class="local-stat">👥 240 Tourists</span>
+                    </div>
+                    <div class="local-earned">
+                        Earned this month: <strong>₹24,000</strong> — all direct, zero middlemen
+                    </div>
+                    <div class="verified">✅ Blockchain Verified</div>
+                </div>
+
+                <div class="local-card">
+                    <div class="local-header">
+                        <div class="local-emoji">👩‍🍳</div>
+                        <div>
+                            <div class="local-name">Maria D'Souza</div>
+                            <div class="local-role">Heritage Cook · Fontainhas</div>
+                        </div>
+                    </div>
+                    <div class="local-stats">
+                        <span class="local-stat">⭐ 5.0 Rating</span>
+                        <span class="local-stat">🍛 200yr Recipes</span>
+                        <span class="local-stat">👥 180 Tourists</span>
+                    </div>
+                    <div class="local-earned">
+                        Earned this month: <strong>₹18,500</strong> — all direct, zero middlemen
+                    </div>
+                    <div class="verified">✅ Blockchain Verified</div>
+                </div>
+
+                <div class="local-card">
+                    <div class="local-header">
+                        <div class="local-emoji">🧵</div>
+                        <div>
+                            <div class="local-name">Savitri Naik</div>
+                            <div class="local-role">Kunbi Weaver · Last 12 Masters</div>
+                        </div>
+                    </div>
+                    <div class="local-stats">
+                        <span class="local-stat">⭐ 4.8 Rating</span>
+                        <span class="local-stat">🧵 800yr Craft</span>
+                        <span class="local-stat">👥 95 Tourists</span>
+                    </div>
+                    <div class="local-earned">
+                        Earned this month: <strong>₹12,300</strong> — all direct, zero middlemen
+                    </div>
+                    <div class="verified">✅ Blockchain Verified</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Animate money bars on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('bar1').style.width = '60%';
+                document.getElementById('bar2').style.width = '25%';
+                document.getElementById('bar3').style.width = '15%';
+            }, 600);
+        });
+    </script>
+
+</body>
+</html>

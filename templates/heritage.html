@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heritage | Namaskar Goa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --deep-blue: #0A1628;
+            --gold: #F4A642;
+            --coral: #E8563A;
+            --turquoise: #00BCD4;
+            --cream: #FFF8F0;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--deep-blue); color: var(--cream); }
+        
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(10,22,40,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(244,166,66,0.2);
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+        .logo span { color: var(--turquoise); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-cta { background: var(--gold); color: var(--deep-blue) !important; padding: 10px 25px !important; border-radius: 50px !important; font-weight: 600 !important; }
+
+        /* PAGE HERO */
+        .page-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0A1628, #1a3a2a);
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(244,166,66,0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .page-hero-content { position: relative; z-index: 2; }
+
+        .page-label {
+            color: var(--turquoise);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .page-hero h1 span {
+            background: linear-gradient(90deg, var(--gold), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-hero p {
+            color: rgba(255,248,240,0.6);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        /* HERITAGE CARDS */
+        .heritage-section { padding: 80px 50px; max-width: 1200px; margin: 0 auto; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: rgba(255,248,240,0.5);
+        }
+
+        .heritage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .heritage-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .heritage-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(244,166,66,0.4);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .card-image-placeholder {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+
+        .heritage-card:hover .card-image-placeholder img {
+            transform: scale(1.08);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, rgba(10,22,40,0.95));
+            z-index: 1;
+        }
+
+        .ar-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(244,166,66,0.95);
+            color: var(--deep-blue);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .site-icon {
+            position: absolute;
+            bottom: 12px;
+            left: 15px;
+            font-size: 1.8rem;
+            z-index: 2;
+        }
+
+        .card-image-placeholder.fort {
+            background: linear-gradient(135deg, #2d1b00, #5a3600);
+        }
+
+        .card-image-placeholder.craft {
+            background: linear-gradient(135deg, #1a0028, #3d0066);
+        }
+
+        .card-image-placeholder.food {
+            background: linear-gradient(135deg, #001a10, #004d2e);
+        }
+
+        .card-image-placeholder.church {
+            background: linear-gradient(135deg, #001a2d, #004080);
+        }
+
+        .ar-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(244,166,66,0.9);
+            color: var(--deep-blue);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .card-body { padding: 25px; }
+
+        .card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--cream);
+        }
+
+        .card-body p {
+            color: rgba(255,248,240,0.55);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-age {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-btn {
+            background: rgba(244,166,66,0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 7px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .card-btn:hover {
+            background: var(--gold);
+            color: var(--deep-blue);
+        }
+
+        /* AI NARRATOR SECTION */
+        .ai-narrator {
+            background: rgba(0,188,212,0.05);
+            border: 1px solid rgba(0,188,212,0.2);
+            border-radius: 30px;
+            padding: 60px;
+            text-align: center;
+            margin: 60px 50px;
+        }
+
+        .ai-narrator h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .ai-narrator p {
+            color: rgba(255,248,240,0.6);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .narrator-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .narrator-feature {
+            text-align: center;
+        }
+
+        .narrator-feature i {
+            font-size: 2rem;
+            color: var(--turquoise);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .narrator-feature span {
+            font-size: 0.85rem;
+            color: rgba(255,248,240,0.6);
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, var(--turquoise), #0066cc);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(0,188,212,0.3);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0,188,212,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">नमस्कार <span>Goa</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/heritage">Heritage</a></li>
+            <li><a href="/sakhi">SAKHI AI</a></li>
+            <li><a href="/passport">My Passport</a></li>
+            <li><a href="/impact">Impact</a></li>
+            <li><a href="/sakhi" class="nav-cta">Start Journey</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-content">
+            <span class="page-label">🏛️ Cultural Heritage Vault</span>
+            <h1>Goa's <span>Living</span> Heritage</h1>
+            <p>500 years of stories. Preserved forever through AI. Experience what textbooks never taught you.</p>
+        </div>
+    </div>
+
+    <!-- HERITAGE CARDS -->
+    <div class="heritage-section">
+        <div class="section-header">
+            <h2>Explore Historical Sites</h2>
+            <p>Each site has an AI narrator who lived in that era</p>
+        </div>
+
+        <div class="heritage-grid">
+            
+            <div class="heritage-grid">
+
+    <!-- CARD 1: AGUADA FORT -->
+    <div class="heritage-card">
+        <div class="card-image-placeholder">
+            <img 
+                src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80" 
+                alt="Aguada Fort Goa"
+                onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80'"
+            >
+            <div class="image-overlay"></div>
+            <span class="ar-badge">AR READY</span>
+            <span class="site-icon">🏰</span>
+        </div>
+        <div class="card-body">
+            <h3>Aguada Fort</h3>
+            <p>A 17th-century Portuguese fort overlooking the Arabian Sea. Our AI avatar — a Portuguese soldier from 1612 — narrates its story in real-time.</p>
+            <div class="card-meta">
+                <span class="card-age">⏰ 400+ Years Old</span>
+                <a href="/sakhi" class="card-btn">Hear Story →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 2: BASILICA OF BOM JESUS -->
+    <div class="heritage-card">
+        <div class="card-image-placeholder">
+            <img 
+                src="https://scroll.in/article/1075487/interview-how-the-16th-century-basilica-of-bom-jesus-became-an-icon-of-goan-identity" 
+                alt="Basilica of Bom Jesus Goa"
+                onerror="this.src='https://en.wikipedia.org/wiki/Basilica_of_Bom_Jesus'"
+            >
+            <div class="image-overlay"></div>
+            <span class="ar-badge">AI NARRATOR</span>
+            <span class="site-icon">⛪</span>
+        </div>
+        <div class="card-body">
+            <h3>Basilica of Bom Jesus</h3>
+            <p>UNESCO World Heritage Site holding the remains of St. Francis Xavier. An AI-reconstructed priest narrates 500 years of miracles and history.</p>
+            <div class="card-meta">
+                <span class="card-age">⏰ 500+ Years Old</span>
+                <a href="/sakhi" class="card-btn">Hear Story →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 3: KUNBI WEAVING -->
+    <div class="heritage-card">
+        <div class="card-image-placeholder">
+            <img 
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" 
+                alt="Traditional Weaving Craft Goa"
+                onerror="this.src='https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=80'"
+            >
+            <div class="image-overlay"></div>
+            <span class="ar-badge">ENDANGERED</span>
+            <span class="site-icon">🪔</span>
+        </div>
+        <div class="card-body">
+            <h3>Kunbi Weaving Craft</h3>
+            <p>Only 12 master weavers remain. This 800-year-old Goan tribal weaving tradition is on the verge of extinction. We've digitally preserved every technique.</p>
+            <div class="card-meta">
+                <span class="card-age">🔴 12 Masters Left</span>
+                <a href="/sakhi" class="card-btn">Learn Craft →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 4: GOAN CUISINE -->
+    <div class="heritage-card">
+        <div class="card-image-placeholder">
+            <img 
+                src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80" 
+                alt="Authentic Goan Food"
+                onerror="this.src='https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80'"
+            >
+            <div class="image-overlay"></div>
+            <span class="ar-badge">AUTHENTIC</span>
+            <span class="site-icon">🍛</span>
+        </div>
+        <div class="card-body">
+            <h3>Goan Catholic Cuisine</h3>
+            <p>Xacuti, Sorpotel, Bebinca — recipes passed through generations. Meet families who still cook with 200-year-old recipes in wood-fire kitchens.</p>
+            <div class="card-meta">
+                <span class="card-age">🍽️ 200yr Recipes</span>
+                <a href="/sakhi" class="card-btn">Meet Families →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 5: DEKHNNI DANCE -->
+    <div class="heritage-card">
+        <div class="card-image-placeholder">
+            <img 
+                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&q=80" 
+                alt="Classical Dance Performance"
+                onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80'"
+            >
+            <div class="image-overlay"></div>
+            <span class="ar-badge">LIVE SHOWS</span>
+            <span class="site-icon">🎭</span>
+        </div>
+        <div class="card-body">
+            <h3>Dekhnni Dance Form</h3>
+            <p>The classical dance of Goa blending Hindu and Portuguese traditions. Only 8 performers still know the original choreography.</p>
+            <div class="card-meta">
+                <span class="card-age">🎭 8 Performers Left</span>
+                <a href="/sakhi" class="card-btn">Watch & Learn →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 6: POTTERY VILLAGE -->
+    <div class="heritage-card">
+        <div class="card-image-placeholder">
+            <img 
+                src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&q=80" 
+                alt="Traditional Pottery Making"
+                onerror="this.src='https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=600&q=80'"
+            >
+            <div class="image-overlay"></div>
+            <span class="ar-badge">WORKSHOP</span>
+            <span class="site-icon">🏺</span>
+        </div>
+        <div class="card-body">
+            <h3>Goan Pottery Village</h3>
+            <p>The Kumbar community has made clay pots for 600 years. Take a live virtual workshop or visit in person — all bookings go directly to the artisans.</p>
+            <div class="card-meta">
+                <span class="card-age">🏺 600yr Tradition</span>
+                <a href="/sakhi" class="card-btn">Book Workshop →</a>
+            </div>
+        </div>
+    </div>
+
+</div>s
+
+            <div class="heritage-card">
+                <div class="card-image-placeholder church">
+                    ⛪
+                    <span class="ar-badge">AI NARRATOR</span>
+                </div>
+                <div class="card-body">
+                    <h3>Basilica of Bom Jesus</h3>
+                    <p>UNESCO World Heritage Site holding the remains of St. Francis Xavier. An AI-reconstructed priest narrates 500 years of miracles and history.</p>
+                    <div class="card-meta">
+                        <span class="card-age">⏰ 500+ Years Old</span>
+                        <a href="/sakhi" class="card-btn">Hear Story →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heritage-card">
+                <div class="card-image-placeholder craft">
+                    🪔
+                    <span class="ar-badge">ENDANGERED</span>
+                </div>
+                <div class="card-body">
+                    <h3>Kunbi Weaving Craft</h3>
+                    <p>Only 12 master weavers remain. This 800-year-old Goan tribal weaving tradition is on the verge of extinction. We've digitally preserved every technique.</p>
+                    <div class="card-meta">
+                        <span class="card-age">🔴 12 Masters Left</span>
+                        <a href="/sakhi" class="card-btn">Learn Craft →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heritage-card">
+                <div class="card-image-placeholder food">
+                    🍛
+                    <span class="ar-badge">AUTHENTIC</span>
+                </div>
+                <div class="card-body">
+                    <h3>Goan Catholic Cuisine</h3>
+                    <p>Xacuti, Sorpotel, Bebinca — recipes passed through generations. Meet the families who still cook with 200-year-old recipes in wood-fire kitchens.</p>
+                    <div class="card-meta">
+                        <span class="card-age">🍽️ 200yr Recipes</span>
+                        <a href="/sakhi" class="card-btn">Meet Families →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heritage-card">
+                <div class="card-image-placeholder fort">
+                    🎭
+                    <span class="ar-badge">LIVE SHOWS</span>
+                </div>
+                <div class="card-body">
+                    <h3>Dekhnni Dance Form</h3>
+                    <p>The classical dance of Goa blending Hindu and Portuguese traditions. Only 8 performers still know the original choreography.</p>
+                    <div class="card-meta">
+                        <span class="card-age">🎭 8 Performers Left</span>
+                        <a href="/sakhi" class="card-btn">Watch & Learn →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heritage-card">
+                <div class="card-image-placeholder craft">
+                    🎪
+                    <span class="ar-badge">WORKSHOP</span>
+                </div>
+                <div class="card-body">
+                    <h3>Goan Pottery Village</h3>
+                    <p>The Kumbar community has made clay pots for 600 years. Take a live virtual workshop or visit in person — all bookings go directly to the artisans.</p>
+                    <div class="card-meta">
+                        <span class="card-age">🏺 600yr Tradition</span>
+                        <a href="/sakhi" class="card-btn">Book Workshop →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- AI NARRATOR SECTION -->
+    <div class="ai-narrator">
+        <h2>🤖 Meet Our AI Heritage Narrators</h2>
+        <p>We've trained AI on historical records, oral traditions, and archived documents to create hyper-realistic avatars who narrate Goa's story from the inside.</p>
+        
+        <div class="narrator-features">
+            <div class="narrator-feature">
+                <i class="fas fa-microphone"></i>
+                <span>AI Voice Cloning</span>
+            </div>
+            <div class="narrator-feature">
+                <i class="fas fa-language"></i>
+                <span>Hindi & English</span>
+            </div>
+            <div class="narrator-feature">
+                <i class="fas fa-vr-cardboard"></i>
+                <span>AR Ready</span>
+            </div>
+            <div class="narrator-feature">
+                <i class="fas fa-history"></i>
+                <span>500yr History</span>
+            </div>
+        </div>
+
+        <a href="/sakhi" class="btn-glow">
+            <i class="fas fa-robot"></i> Ask SAKHI About Heritage
+        </a>
+    </div>
+
+</body>
+</html>
